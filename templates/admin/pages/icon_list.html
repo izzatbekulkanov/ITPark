@@ -1,0 +1,88 @@
+{% extends 'admin/main/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="content">
+        <div class="row mt-3 mb-3">
+            <div class="input-group input-group-lg">
+                <input class="form-control" type="text" id="icon-input" name="icon-input"
+                       placeholder="Yangi icon qoshing" autofocus>
+                <button class="input-group-text" type="button" id="add-icon-btn"><i class="fa fa-plus"></i></button>
+            </div>
+        </div>
+        <div class="row g-sm" id="icon-div">
+            
+        </div>
+    </div>
+{% endblock content %}
+
+{% block script %}
+    <script>
+        $(document).ready(function () {
+            $('#add-icon-btn').click(function () {
+                var iconInput = $('#icon-input').val(); // ikon nomini olish
+                if (iconInput.trim() === '') {
+                    alert('Ikon nomini kiriting!'); // agar ikon nomi kiritilmagan bo'lsa xabar chiqarish
+                    return;
+                }
+                // Ajax so'rovni jo'natish
+                $.ajax({
+                    type: 'POST',
+                    url: '/json/save_icon', // save_icon funksiyasi uchun URL manzil
+                    data: {
+                         csrfmiddlewaretoken: '{{ csrf_token }}', // CSRF tokenini yuborish
+                        icon_name: iconInput // serverga jo'natiladigan ma'lumot
+                    },
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.success) {
+                            // Saqlangan ikonni HTML kodini olish va uni joylash
+                            fetchIcons();
+                            $('#icon-input').val('');
+                            alert(response.message); // muvaffaqiyatli saqlangan xabarini ko'rsatish
+                        } else {
+                            alert(response.message); // xatolik xabarni ko'rsatish
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Ikon saqlashda xatolik yuz berdi:', error); // xatolik haqida ma'lumot chiqarish
+                        alert('Ikon saqlashda xatolik yuz berdi. Iltimos, qayta urinib ko\'ring.'); // xatolik xabarni ko'rsatish
+                    }
+                });
+            });
+        });
+        function fetchIcons() {
+            let iconDiv = document.getElementById('icon-div');
+            iconDiv.innerHTML = '';  // Bo'shaltirish
+            $.ajax({
+                type: 'GET',
+                url: '/json/get_icons',  // get_icons funksiyasi uchun URL manzilini o'zgartiring
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success) {
+                        // Iconlarni HTML-ga chiqaring
+                        var iconList = response.icons;
+                        iconList.forEach(function(icon) {
+                            var html = '<div class="col-6 col-md-4 col-xl-2">';
+                            html += '<a class="block block-rounded block-bordered block-link-shadow text-center" href="javascript:void(0)">';
+                            html += '<div class="block-content">';
+                            html += '<p class="mt-1">' + icon.icon + '</p>' ;
+                            html += '<p class="fw-medium">' + icon.name + '</p>';
+                            html += '</div>';
+                            html += '</a>';
+                            html += '</div>';
+                            iconDiv.innerHTML += html;
+                        });
+                    } else {
+                        alert('Xatolik: ' + response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Xatolik: ' + error);
+                }
+            });
+        }
+        fetchIcons();
+
+    </script>
+
+{% endblock script %}

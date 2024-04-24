@@ -1,0 +1,194 @@
+{% extends 'admin/main/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="content">
+        <!-- Dynamic Table Responsive -->
+        <div class="block block-rounded">
+            <div class="block-header block-header-default">
+                <h3 class="block-title">
+                    UlkanovBANK <small>Mijozlarni qabul qilish</small>
+                </h3>
+            </div>
+            <div class="block-content block-content-full">
+                <!-- DataTables functionality is initialized with .js-dataTable-responsive class in js/pages/be_tables_datatables.min.js which was auto compiled from _js/pages/be_tables_datatables.js -->
+                <table class="table table-bordered table-striped table-vcenter js-dataTable-responsive">
+                    <thead>
+                    <tr>
+                        <th class="text-center">TR</th>
+                        <th>First name</th>
+                        <th>Last name</th>
+                        <th>Navbat raqami</th>
+                        <th>Xizmat turi</th>
+                        <th>Yaratilgan vaqti</th>
+                        <th style="width: 15%;">Access</th>
+                        <th class="text-center" style="width: 15%;">Profile</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Dynamic Table Responsive -->
+    </div>
+
+    <!-- Normal Modal -->
+    <div class="modal" id="modal-normal" tabindex="-1" role="dialog" aria-labelledby="modal-normal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="block block-rounded shadow-none mb-0">
+                    <div class="block-header block-header-default">
+                        <h3 class="block-title">Mijoz qabul qilish</h3>
+                        <div class="block-options">
+                            <button type="button" class="btn-block-option" data-bs-dismiss="modal" aria-label="Close">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="block-content fs-sm">
+                        <div class="col-md-12">
+                            <!-- Danger Alert -->
+                            <div class="alert alert-danger" role="alert">
+                                <p class="mb-0" id="queue-name-modal">
+                                    Etiborli bo'ling
+                                </p>
+                            </div>
+                            <!-- END Danger Alert -->
+                        </div>
+                    </div>
+                    <div class="block-content block-content-full block-content-sm text-end border-top"
+                         id="modal-button-div">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END Normal Modal -->
+{% endblock content %}
+
+{% block script %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+            integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        function populateWaitingQueueTable(waitingQueue) {
+            var tableBody = document.querySelector('.js-dataTable-responsive tbody');
+            tableBody.innerHTML = '';
+
+            waitingQueue.forEach(function (item, index) {
+                var row = document.createElement('tr');
+
+                // created_at va updated_at ni formatlash
+                var createdAt = new Date(item.created_at);
+                row.innerHTML = `
+                    <td class="text-center">${index + 1}</td>
+                    <td class="fw-semibold">${item.first_name}</td>
+                    <td>${item.last_name}</td>
+                    <td>${item.order_number}</td>
+                    <td>${item.services}</td>
+                    <td>${formatDateTime(createdAt)}</td>
+                    <td>
+                        <span class="badge bg-info">${item.done}</span>
+                    </td>
+                    <td class="text-center">
+                        <button type="button" class="btn btn-sm btn-secondary"  data-bs-toggle="modal" data-bs-toggle="tooltip" title="Qabul qilish"  data-bs-target="#modal-normal" onclick="fillmodal(${item.id},  '${item.services}')">
+                            <i class="fa fa-download"></i>
+                        </button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Waiting Queue lar ro'yxatini olish uchun AJAX so'rov
+        function fetchWaitingQueue() {
+            fetch('/json/get_waiting_queue')
+                .then(response => response.json())
+                .then(data => {
+                    populateWaitingQueueTable(data.waiting_queue);
+                })
+                .catch(error => console.error('Error fetching waiting queue:', error));
+        }
+
+        // Waiting Queue lar ro'yxatini yuklash
+        fetchWaitingQueue();
+
+        function formatDateTime(dateTime) {
+            var options = {
+                month: 'numeric',
+                day: 'numeric',
+                hour: 'numeric',
+                minute: 'numeric'
+            };
+            return new Intl.DateTimeFormat('default', options).format(dateTime);
+        }
+
+        function fillmodal(idCode, name) {
+
+            let name_modal = document.getElementById('queue-name-modal')
+            let button_div = document.getElementById('modal-button-div')
+
+            name_modal.innerText = `${name}`
+
+            button_div.innerHTML = `
+                <button type="button" class="btn btn-alt-secondary" data-bs-dismiss="modal">
+                    Yopish
+                </button>
+                <button type="button" class="btn btn-alt-warning" data-bs-dismiss="modal"
+                        onclick="submitForm('delay', ${idCode})">
+                    Kechiktirildi
+                </button>
+                <button type="button" class="btn btn-alt-danger" data-bs-dismiss="modal"
+                        onclick="submitForm('reject', ${idCode})">
+                    Rad edildi
+                </button>
+                <button type="button" class="btn btn-alt-success" data-bs-dismiss="modal"
+                        onclick="submitForm('accept', ${idCode})">
+                    Bajarildi
+                </button>
+            
+            `
+
+
+        }
+
+        function submitForm(name, idcode) {
+            // AJAX so'rovini yuborish
+            $.ajax({
+                url: '/json/change_queue_status',
+                type: 'POST',
+                data: {
+                    'name': name,
+                    'id': idcode,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function (data) {
+                    fetchWaitingQueue();
+                    Codebase.helpers('jq-notify', {
+                        align: 'right',
+                        from: 'bottom',
+                        type: 'success',
+                        icon: 'fa fa-check me-5',
+                        message: `Muvaffaqiyatli yanilandi`
+                    });
+                    // Qaysi sahifaga qaytish lozim bo'lsa uni o'zgartiring
+                    // window.location.href = '/profile/';
+                },
+                error: function (xhr, status, error) {
+                    Codebase.helpers('jq-notify', {
+                        align: 'right',
+                        from: 'bottom',
+                        type: 'danger',
+                        icon: 'fa fa-check me-5',
+                        message: `${data.message}` // response o'rniga data ishlatilgan
+                    });
+                }
+            });
+        }
+
+
+    </script>
+
+{% endblock script %}

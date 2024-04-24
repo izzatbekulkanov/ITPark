@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+    <title>Codebase - Bootstrap 5 Admin Template &amp; UI Framework</title>
+
+    <meta name="description" content="Codebase - Bootstrap 5 Admin Template &amp; UI Framework created by pixelcave">
+    <meta name="author" content="pixelcave">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph Meta -->
+    <meta property="og:title" content="Codebase - Bootstrap 5 Admin Template &amp; UI Framework">
+    <meta property="og:site_name" content="Codebase">
+    <meta property="og:description"
+          content="Codebase - Bootstrap 5 Admin Template &amp; UI Framework created by pixelcave">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+
+    <!-- Icons -->
+    <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
+    <link rel="shortcut icon" href="{% static 'assets/media/favicons/favicon.png' %}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{% static 'assets/media/favicons/favicon-192x192.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180"
+          href="{% static 'assets/media/favicons/apple-touch-icon-180x180.png' %}">
+    <!-- END Icons -->
+
+    <!-- Stylesheets -->
+
+    <!-- Codebase framework -->
+    <link rel="stylesheet" id="css-main" href="{% static 'assets/css/codebase.min.css' %}">
+
+    <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
+    <!-- <link rel="stylesheet" id="css-theme" href="{% static 'assets/css/themes/flat.min.css' %}"> -->
+    <!-- END Stylesheets -->
+</head>
+
+<body>
+<!-- Page Container -->
+<div id="page-container" class="main-content-boxed">
+
+    <!-- Main Container -->
+    <main id="main-container">
+
+        <!-- Page Content -->
+        <div class="bg-body-dark">
+            <div class="hero-static content content-full px-1">
+                <div class="row mx-0 justify-content-center">
+                    <div class="col-lg-8 col-xl-6">
+                        <!-- Header -->
+                        <div class="py-4 text-center">
+                            <a class="link-fx fw-bold" href="{% url 'index' %}">
+                                <i class="fa fa-fire"></i>
+                                <span class="fs-4 text-body-color">Ulkanov</span><span class="fs-4">BANK</span>
+                            </a>
+                            <h1 class="h3 fw-bold mt-4 mb-1">
+                                Hush kelibsiz !!!
+                            </h1>
+                            <h2 class="fs-5 lh-base fw-normal text-muted mb-0">
+                                Bugun ajoyib kun!
+                            </h2>
+                        </div>
+                        <!-- END Header -->
+                        <form class="js-validation-signin" method="POST"> {% csrf_token %}
+                            <div class="block block-themed block-rounded block-fx-shadow">
+                                <div class="block-header bg-gd-dusk">
+                                    <h3 class="block-title">Iltimos tizimga kiring</h3>
+                                </div>
+                                <div class="block-content">
+                                    <div class="form-floating mb-4">
+                                        <input type="text" class="form-control" id="username" name="username"
+                                               placeholder="Foydalanuvchi nomi yoki email kiritng">
+                                        <label class="form-label" for="username">Foydalanuvchi nomi</label>
+                                    </div>
+                                    <div class="form-floating mb-4">
+                                        <input type="password" class="form-control" id="password" name="password"
+                                               placeholder="Parolingizni kiriting">
+                                        <label class="form-label" for="password">Parol</label>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6 d-sm-flex align-items-center push">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value=""
+                                                       id="login-remember-me" name="login-remember-me">
+                                                <label class="form-check-label" for="login-remember-me">Meni saqlab
+                                                    qol</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 text-sm-end push">
+                                            <button type="submit" class="btn btn-lg btn-alt-primary fw-medium">Kirish
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }}" role="alert">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                        <!-- END Sign In Form -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END Page Content -->
+    </main>
+    <!-- END Main Container -->
+</div>
+<!-- END Page Container -->
+
+<script src="{% static 'assets/js/codebase.app.min.js' %}"></script>
+
+<!-- jQuery (required for jQuery Validation plugins) -->
+<script src="{% static 'assets/js/lib/jquery.min.js' %}"></script>
+
+<!-- Page JS Plugins -->
+<script src="{% static 'assets/js/plugins/jquery-validation/jquery.validate.min.js' %}"></script>
+
+<!-- Page JS Code -->
+<script src="{% static 'assets/js/pages/op_auth_signin.min.js' %}"></script>
+</body>
+</html>

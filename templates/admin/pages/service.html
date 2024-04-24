@@ -1,0 +1,106 @@
+{% extends 'admin/main/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="content">
+        <div class="block block-rounded">
+            <div class="block-header block-header-default">
+                <h3 class="block-title">
+                    Xizmat turlari
+
+
+                </h3>
+                <button type="button" class="btn btn-outline-success me-1 mb-1" data-bs-toggle="modal"
+                        data-bs-target="#modal-small">
+                    <i class="fa fa-plus opacity-50 me-1"></i>Xizmat turi qo'shish
+                </button>
+            </div>
+            <div class="block-content block-content-full">
+                <table class="js-table-sections table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Nomi</th>
+                        <th style="width: 15%;">Kodi</th>
+                        <th class="d-none d-sm-table-cell" style="width: 20%;">Yaratilgan vaqti</th>
+                    </tr>
+                    </thead>
+                    <tbody class="js-table-sections-header show table-active">  
+                    </tbody>
+
+
+                </table>
+            </div>
+        </div>
+        <!-- END Table Sections -->
+
+    </div>
+
+    <!-- Small Modal -->
+    <div class="modal" id="modal-small" tabindex="-1" role="dialog" aria-labelledby="modal-small" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="block block-rounded shadow-none mb-0">
+                    <div class="block-header block-header-default">
+                        <h3 class="block-title">Xizmat</h3>
+                        <div class="block-options">
+                            <button type="button" class="btn-block-option" data-bs-dismiss="modal" aria-label="Close">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="block-content fs-xl">
+                        <div class="block block-rounded">
+                            <div class="block-content">
+                                <form id="serviceForm">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-lg-12 col-xl-12">
+                                            <div class="mb-4">
+                                                <label class="form-label" for="serviceName">Xizmat turi nomi</label>
+                                                <input type="text" class="form-control form-control-sm" id="serviceName"
+                                                       name="serviceName" placeholder="Xizmat turi nomini kiriting">
+                                            </div>
+                                            <div class="mb-4">
+                                                <label class="form-label" for="serviceCode">Xizmat turi kodi</label>
+                                                <input type="text" class="form-control form-control-sm" id="serviceCode"
+                                                       name="serviceCode" placeholder="Xizmat turi kodini kiriting">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block-content block-content-full block-content-sm text-end border-top">
+                        <button type="button" class="btn btn-alt-secondary" data-bs-dismiss="modal">Yopish</button>
+                        <button type="button" class="btn btn-alt-primary" id="saveServiceBtns">Saqlash</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- END Small Modal -->
+{% endblock content %}
+{% block script %}
+    <script src="{% static 'assets/js/app/services.js' %}"></script>
+    <!-- jQuery (required for BS Datepicker + BS Maxlength + Select2 + Masked Inputs + Ion Range Slider + Password Strength Meter plugins) -->
+    <script src="{% static 'assets/js/lib/jquery.min.js' %}"></script>
+
+    <!-- Page JS Plugins -->
+    <script src="{% static 'assets/js/plugins/pwstrength-bootstrap/pwstrength-bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/select2/js/select2.full.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/masked-inputs/jquery.maskedinput.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/ion-rangeslider/js/ion.rangeSlider.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/dropzone/min/dropzone.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/flatpickr/flatpickr.min.js' %}"></script>
+
+    <script src="{% static 'assets/js/plugins/select2/js/select2.full.min.js' %}"></script>
+
+    <!-- Page JS Helpers (Flatpickr + BS Datepicker + BS Maxlength + Select2 + Ion Range Slider + Masked Inputs + Password Strength Meter plugins) -->
+
+{% endblock script %}

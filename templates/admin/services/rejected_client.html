@@ -1,0 +1,96 @@
+{% extends 'admin/main/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="content">
+        <!-- Dynamic Table Responsive -->
+        <div class="block block-rounded">
+            <div class="block-header block-header-default">
+                <h3 class="block-title">
+                    UlkanovBank <small>Qabul qilinmagan mijozlar</small>
+                </h3>
+            </div>
+            <div class="block-content block-content-full">
+                <!-- DataTables functionality is initialized with .js-dataTable-responsive class in js/pages/be_tables_datatables.min.js which was auto compiled from _js/pages/be_tables_datatables.js -->
+                <table class="table table-bordered table-striped table-vcenter js-dataTable-responsive">
+                    <thead>
+                    <tr>
+                        <th class="text-center">TR</th>
+                        <th>First name</th>
+                        <th>Last name</th>
+                        <th>Navbat raqami</th>
+                        <th>Xizmat turi</th>
+                        <th>Yaratilgan vaqti</th>
+                        <th>Yangilangan vaqti</th>
+
+                        <th style="width: 15%;">Access</th>
+                        <th class="text-center" style="width: 15%;">Edited by</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Dynamic Table Responsive -->
+    </div>
+{% endblock content %}
+
+{% block script %}
+    <script>
+        function populateWaitingQueueTable(waitingQueue) {
+            var tableBody = document.querySelector('.js-dataTable-responsive tbody');
+            tableBody.innerHTML = '';
+
+            waitingQueue.forEach(function (item, index) {
+                var row = document.createElement('tr');
+
+                // created_at va updated_at ni formatlash
+                var createdAt = new Date(item.created_at);
+                var updatedAt = new Date(item.updated_at);
+
+                row.innerHTML = `
+                    <td class="text-center">${index + 1}</td>
+                    <td class="fw-semibold">${item.first_name}</td>
+                    <td>${item.last_name}</td>
+                    <td>${item.order_number}</td>
+                    <td>${item.services}</td>
+                    <td>${formatDateTime(createdAt)}</td>
+                    <td>${formatDateTime(updatedAt)}</td>
+                    <td>
+                        <span class="badge bg-danger">${item.done}</span>
+                    </td>
+                    <td class="text-center">
+                        ${item.user}
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        function formatDateTime(dateTime) {
+            var options = {
+                month: 'numeric',
+                day: 'numeric',
+                hour: 'numeric',
+                minute: 'numeric'
+            };
+            return new Intl.DateTimeFormat('default', options).format(dateTime);
+        }
+
+        // Waiting Queue lar ro'yxatini olish uchun AJAX so'rov
+        function fetchWaitingQueue() {
+            fetch('/json/get_reject_queue')
+                .then(response => response.json())
+                .then(data => {
+                    populateWaitingQueueTable(data.waiting_queue);
+                })
+                .catch(error => console.error('Error fetching waiting queue:', error));
+        }
+
+        // Waiting Queue lar ro'yxatini yuklash
+        fetchWaitingQueue();
+
+    </script>
+
+{% endblock script %}

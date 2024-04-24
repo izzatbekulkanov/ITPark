@@ -1,0 +1,167 @@
+{% extends 'admin/main/base.html' %}
+{% load static %}
+
+{% block style %}
+    <!-- Page JS Plugins CSS -->
+    <link rel="stylesheet" href="{% static 'assets/js/plugins/select2/css/select2.css' %}">
+
+    <!-- Page JS Plugins CSS -->
+    <link rel="stylesheet"
+          href="{% static 'assets/js/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/js/plugins/select2/css/select2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/js/plugins/ion-rangeslider/css/ion.rangeSlider.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/js/plugins/dropzone/min/dropzone.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/js/plugins/flatpickr/flatpickr.min.css' %}">
+
+    <!-- Codebase framework -->
+    <link rel="stylesheet" id="css-main" href="{% static 'assets/css/codebase.min.css' %}">
+{% endblock style %}
+{% block content %}
+    <div class="content">
+
+        <div class="card p-2">
+            <div class="row">
+                <form class="js-validation" method="POST"> {% csrf_token %}
+                    <div class="block block-rounded">
+                        <div class="block-header block-header-default">
+                            <h3 class="block-title">Add user</h3>
+                            <div class="block-options">
+                                <button type="button" class="btn-block-option">
+                                    <i class="si si-wrench"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="block-content block-content-full">
+                            <div class="row items-push">
+
+                                <div class="col-lg-8 col-xl-8">
+                                    <div class="row">
+                                        <div class="mb-4 col-6">
+                                            <label class="form-label" for="val-username">Username <span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="val-username"
+                                                   name="val-username"
+                                                   placeholder="Enter a username..">
+                                        </div>
+                                        <div class="mb-4 col-6">
+                                            <label class="form-label" for="val-email">Email <span
+                                                    class="text-danger">*</span></label>
+                                            <input type="email" class="form-control" id="val-email" name="val-email" placeholder="Your valid email.." autocomplete="off">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="mb-4 col-6">
+                                            <label class="form-label" for="val-username">First name <span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="val-first-name"
+                                                   name="val-first-name"
+                                                   placeholder="Enter first name..">
+                                        </div>
+                                        <div class="mb-4 col-6">
+                                            <label class="form-label" for="val-second-name">Last name <span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="val-second-name"
+                                                   name="val-second-name"
+                                                   placeholder="Enter second name..">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="mb-4 col-6">
+                                            <label class="form-label" for="val-password">Password <span
+                                                    class="text-danger">*</span></label>
+                                            <input type="password" class="form-control" id="val-password"
+                                                   name="val-password" placeholder="Choose a safe one..">
+                                        </div>
+                                        <div class="mb-4 col-6">
+                                            <label class="form-label" for="val-confirm-password">Confirm Password <span
+                                                    class="text-danger">*</span></label>
+                                            <input type="password" class="form-control" id="val-confirm-password"
+                                                   name="val-confirm-password" placeholder="..and confirm it!">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4">
+                                    <p class="fs-sm text-muted">
+                                        Username, email and password validation made easy for your login/register forms
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Submit -->
+                            <div class="row items-push">
+                                <div class="col-lg-12 offset-lg-12">
+                                    <button type="submit" class="btn btn-success w-100">Submit</button>
+                                </div>
+                            </div>
+                            <!-- END Submit -->
+                        </div>
+                    </div>
+                </form>
+                <!-- END jQuery Validation -->
+
+
+            </div>
+        </div>
+
+    </div>
+{% endblock content %}
+
+{% block script %}
+    <!-- jQuery (required for Select2 + jQuery Validation plugins) -->
+    <script src="{% static 'assets/js/lib/jquery.min.js' %}"></script>
+
+    <!-- Page JS Plugins -->
+    <script src="{% static 'assets/js/plugins/select2/js/select2.full.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/jquery-validation/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/jquery-validation/additional-methods.js' %}"></script>
+
+    <!-- Page JS Helpers (Select2 plugin) -->
+    <script>Codebase.helpersOnLoad(['jq-select2']);</script>
+
+    <!-- Page JS Code -->
+    <script src="{% static 'assets/js/pages/be_forms_validation.min.js' %}"></script>
+
+    <script>
+        // JavaScript funksiya
+        $(document).ready(function () {
+            // Form submit bosilganda
+            $('.js-validation').submit(function (e) {
+                e.preventDefault(); // Boshqa sahifaga otmaslik uchun
+                var form = $(this);
+                var formData = form.serialize(); // Formdagi ma'lumotlarni JSON formatga o'zlashtirish
+                
+                console.log(formData)
+
+                // AJAX so'rovni yuborish
+                $.ajax({
+                    url: '/user/json/create_employee', // Formning URL manzili
+                    type: form.attr('method'), // Formning HTTP metod
+                    data: formData, // Formdagi ma'lumotlar
+                    success: function (response) {
+                        // AJAX so'rov muvaffaqiyatli bo'lsa
+                        if (response.success) {
+                            // Muvaffaqiyatli javob olib kelganda
+                            window.location.reload(); // Sahifani qayta yuklash
+                        } else {
+                            // Xatolik yuz berib, muvaffaqiyatsizlik haqida xabar chiqarish
+                            alert('Xatolik: ' + response.error);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        // AJAX so'rovda xatolik bo'lsa
+                        alert('Xatolik: ' + error); // Xatolik haqida xabar chiqarish
+                    }
+                });
+
+                // Formni tozalash
+                form[0].reset();
+            });
+        });
+    </script>
+
+
+
+    </script>
+
+{% endblock script %}
+

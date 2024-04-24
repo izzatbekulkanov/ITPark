@@ -1,0 +1,224 @@
+{% extends 'admin/main/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="content">
+        <div class="row">
+            <!-- Pending -->
+            <div class="col-md-6 col-xl-3">
+                <a class="block block-rounded block-transparent bg-gd-sun" href="javascript:void(0)">
+                    <div class="block-content block-content-full block-sticky-options">
+                        <div class="block-options">
+                            <div class="block-options-item">
+                                <i class="fa fa-spinner fa-spin text-white-75"></i>
+                            </div>
+                        </div>
+                        <div class="py-3 text-center">
+                            <div class="fs-2 fw-bold mb-0 text-white" id="delay-count"></div>
+                            <div class="fs-sm fw-semibold text-uppercase text-white-75">Kechiktirilgan</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- END Pending -->
+
+            <!-- Canceled -->
+            <div class="col-md-6 col-xl-3">
+                <a class="block block-rounded block-transparent bg-gd-cherry" href="javascript:void(0)">
+                    <div class="block-content block-content-full block-sticky-options">
+                        <div class="block-options">
+                            <div class="block-options-item">
+                                <i class="fa fa-times text-white-75"></i>
+                            </div>
+                        </div>
+                        <div class="py-3 text-center">
+                            <div class="fs-2 fw-bold mb-0 text-white" id="reject-count"></div>
+                            <div class="fs-sm fw-semibold text-uppercase text-white-75">Rad etilgan</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- END Canceled -->
+
+            <!-- Completed -->
+            <div class="col-md-6 col-xl-3">
+                <a class="block block-rounded block-transparent bg-gd-lake" href="javascript:void(0)">
+                    <div class="block-content block-content-full block-sticky-options">
+                        <div class="block-options">
+                            <div class="block-options-item">
+                                <i class="fa fa-check text-white-75"></i>
+                            </div>
+                        </div>
+                        <div class="py-3 text-center">
+                            <div class="fs-2 fw-bold mb-0 text-white" id="accept-count"></div>
+                            <div class="fs-sm fw-semibold text-uppercase text-white-75">Bajarilgan</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- END Completed -->
+
+            <!-- All -->
+            <div class="col-md-6 col-xl-3">
+                <a class="block block-rounded block-transparent bg-gd-dusk" href="javascript:void(0)">
+                    <div class="block-content block-content-full block-sticky-options">
+                        <div class="block-options">
+                            <div class="block-options-item">
+                                <i class="fa fa-archive text-white-75"></i>
+                            </div>
+                        </div>
+                        <div class="py-3 text-center">
+                            <div class="fs-2 fw-bold mb-0 text-white" id="service-count"></div>
+                            <div class="fs-sm fw-semibold text-uppercase text-white-75">Barcha hizmatlar</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- END All -->
+        </div>
+        <div class="row">
+            <!-- Row #4 -->
+            <div class="col-md-6">
+                <a class="block block-rounded block-link-shadow overflow-hidden" href="javascript:void(0)">
+                    <div class="block-content block-content-full">
+                        <i class="si si-briefcase fa-2x opacity-25"></i>
+                        <div class="row g-5 py-3">
+                            <div class="col-6 text-end border-end">
+                                <div>
+                                    <div class="fs-3 fw-semibold">16</div>
+                                    <div class="fs-sm fw-semibold text-uppercase text-muted">Projects</div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div>
+                                    <div class="fs-3 fw-semibold">2</div>
+                                    <div class="fs-sm fw-semibold text-uppercase text-muted">Active</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-6">
+                <a class="block block-rounded block-link-shadow overflow-hidden" href="javascript:void(0)">
+                    <div class="block-content block-content-full">
+                        <div class="text-end">
+                            <i class="si si-users fa-2x opacity-25"></i>
+                        </div>
+                        <div class="row g-5 py-3">
+                            <div class="col-6 text-end border-end">
+                                <div>
+                                    <div class="fs-3 fw-semibold text-info" id="queue-count"></div>
+                                    <div class="fs-sm fw-semibold text-uppercase text-muted">Jami xizmatlar</div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div>
+                                    <div class="fs-3 fw-semibold text-success" id="protsent-queue"></div>
+                                    <div class="fs-sm fw-semibold text-uppercase text-muted">Qabul qilinganlari</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- END Row #4 -->
+        </div>
+        <div class="row">
+            <!-- Row #5 -->
+            {% if request.user.is_superuser %}
+                <div class="col-6 col-md-4 col-xl-2">
+                    <a class="block block-rounded block-link-shadow text-center" href="{% url 'serviceView' %}">
+                        <div class="block-content ribbon ribbon-bookmark ribbon-primary ribbon-left">
+                            <div class="ribbon-box">15</div>
+                            <p class="my-3">
+                                <i class="si si-diamond fa-2x"></i>
+                            </p>
+                            <p class="fw-semibold">Xizmatlar</p>
+                        </div>
+                    </a>
+                </div>
+            {% endif %}
+            <div class="col-6 col-md-4 col-xl-2">
+                <a class="block block-rounded block-link-shadow text-center" href="{% url 'acceptClientVIew' %}">
+                    <div class="block-content">
+                        <p class="my-3">
+                            <i class="si si-arrow-down fa-2x"></i>
+                        </p>
+                        <p class="fw-semibold">Qabul qilish</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-6 col-md-4 col-xl-2">
+                <a class="block block-rounded block-link-shadow text-center" href="{% url 'acceptedClientVIew' %}">
+                    <div class="block-content ribbon ribbon-bookmark ribbon-primary ribbon-left">
+                        <div class="ribbon-box">3</div>
+                        <p class="my-3">
+                            <i class="si si-check fa-2x"></i>
+                        </p>
+                        <p class="fw-semibold">Qabul qilingan</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-6 col-md-4 col-xl-2">
+                <a class="block block-rounded block-link-shadow text-center" href="{% url 'rejectedClientVIew' %}">
+                    <div class="block-content">
+                        <p class="my-3">
+                            <i class="si  si-ban fa-2x"></i>
+                        </p>
+                        <p class="fw-semibold">Rad etilgan</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-6 col-md-4 col-xl-2">
+                <a class="block block-rounded block-link-shadow text-center" href="{% url 'waitingClientVIew' %}">
+                    <div class="block-content">
+                        <p class="my-3">
+                            <i class="si si-action-undo fa-2x"></i>
+                        </p>
+                        <p class="fw-semibold">Kechiktirilgan</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-6 col-md-4 col-xl-2">
+                <a class="block block-rounded block-link-shadow text-center" href="javascript:void(0)">
+                    <div class="block-content">
+                        <p class="my-3">
+                            <i class="si si-settings fa-2x"></i>
+                        </p>
+                        <p class="fw-semibold">Mening sahifam</p>
+                    </div>
+                </a>
+            </div>
+            <!-- END Row #5 -->
+        </div>
+    </div>
+{% endblock content %}
+
+{% block script %}
+    <script>
+        function fetchStatistics() {
+            fetch('/json/statistics')
+                .then(response => response.json())
+                .then(data => {
+                    var acceptCount = data.accept_count;
+                    var queueCount = data.queue_count;
+                    
+                    // Protsentni hisoblash va butun son ko'rinishiga o'tkazish
+                    var percentCount = Math.round((acceptCount / queueCount) * 100);
+                    // JSON javobi o'rganilganda statistikani qabul qilib, ko'rsatish uchun kerakli joyga joylashtirish
+                    document.getElementById('accept-count').innerText = data.accept_count;
+                    document.getElementById('reject-count').innerText = data.reject_count;
+                    document.getElementById('delay-count').innerText = data.delay_count;
+                    {#document.getElementById('waiting-count').innerText = data.waiting_count;#}
+                    document.getElementById('queue-count').innerText = data.queue_count;
+                    document.getElementById('protsent-queue').innerText = percentCount+ '%';
+                    document.getElementById('service-count').innerText = data.service_count ;
+                    document.getElementById('superuser-count').innerText = data.superuser_count;
+                })
+                .catch(error => console.error('Error fetching statistics:', error));
+        }
+
+        // Statistikani yuklash
+        fetchStatistics();
+    </script>
+{% endblock script %}

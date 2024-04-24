@@ -1,0 +1,435 @@
+{% extends 'admin/main/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="content">
+        <!-- Page Content -->
+        <!-- User Info -->
+        <div class="bg-image bg-image-bottom"
+             style="background-image: url('{% static 'assets/media/photos/photo13@2x.jpg' %}');">
+            <div class="bg-black-75 py-4">
+                <div class="content content-full text-center">
+                    <!-- Avatar -->
+                    <div class="mb-3">
+                        <a class="img-link" href="be_pages_generic_profile.html">
+                            <img class="img-avatar img-avatar96 img-avatar-thumb"
+                                 src="{% static 'assets/media/avatars/avatar15.jpg' %}" alt="">
+                        </a>
+                    </div>
+                    <!-- END Avatar -->
+
+                    <!-- Personal -->
+                    <h1 class="h3 text-white fw-bold mb-2">{{ user.first_name }} {{ user.second_name }}</h1>
+                    <h2 class="h5 text-white-75">
+                        Turi <a class="text-primary-light" href="javascript:void(0)">{% if user.is_superuser %}
+                        Admin{% else %}Hodim{% endif %}</a>
+                    </h2>
+                    <!-- END Personal -->
+
+                    <!-- Actions -->
+                    <a href="{% url 'admin_view' %}" class="btn btn-primary">
+                        <i class="fa fa-arrow-left opacity-50 me-1"></i> Asosiy sahifa
+                    </a>
+                    <!-- END Actions -->
+                </div>
+            </div>
+        </div>
+        <!-- END User Info -->
+
+        <!-- Main Content -->
+        <div class="content">
+            <!-- User Profile -->
+            <div class="block block-rounded">
+                <div class="block-header block-header-default">
+                    <h3 class="block-title">
+                        <i class="fa fa-user-circle me-1 text-muted"></i> User Profile
+                    </h3>
+                </div>
+                <div class="block-content">
+                    <form action="be_pages_generic_profile.edit.html" method="POST" enctype="multipart/form-data"
+                          onsubmit="return false;">
+                        <div class="row items-push">
+                            <div class="col-lg-3">
+                                <p class="text-muted">
+                                    Your account’s vital info. Your username will be publicly visible.
+                                </p>
+                            </div>
+                            <div class="col-lg-7 offset-lg-1">
+                                <div class="mb-4">
+                                    <label class="form-label" for="profile-settings-username">Username</label>
+                                    <input type="text" class="form-control form-control-lg"
+                                           id="profile-settings-username" name="profile-settings-username"
+                                           placeholder="Enter your username.." value="{{ user.username }}">
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label" for="profile-settings-name">Full name</label>
+                                    <input type="text" class="form-control form-control-lg" id="profile-settings-name"
+                                           name="profile-settings-name" placeholder="Enter your name.."
+                                           value="{{ user.full_name }}">
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label" for="profile-settings-email">Email Address</label>
+                                    <input type="email" class="form-control form-control-lg" id="profile-settings-email"
+                                           name="profile-settings-email" placeholder="Enter your email.."
+                                           value="{{ user.email }}">
+                                    <input type="text" class="form-control " id="user-id-project" value="{{ user.id }}"
+                                           hidden="hidden">
+                                </div>
+                                <div class="row mb-4">
+                                    <div class="col-md-10 col-xl-6">
+                                        <div class="push">
+                                            <img class="img-avatar"
+                                                 src="{% static 'assets/media/avatars/avatar15.jpg' %}" alt="">
+                                        </div>
+                                        <div class="mb-4">
+                                            <label class="form-label" for="profile-settings-avatar" class="form-label">Choose
+                                                new avatar</label>
+                                            <input class="form-control" type="file" id="profile-settings-avatar"
+                                                   name="profile-settings-avatar">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-4">
+                                    <button type="submit" class="btn btn-alt-primary">Update</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- END User Profile -->
+
+            <!-- Connections -->
+            <div class="block block-rounded">
+                <div class="block-header block-header-default">
+                    <h3 class="block-title">
+                        <i class="fa fa-share-alt me-1 text-muted"></i> Connections
+                    </h3>
+                </div>
+                <div class="block-content">
+                    <form action="be_pages_generic_profile.edit.html" method="POST" onsubmit="return false;">
+                        <div class="row items-push">
+                            <div class="col-lg-3">
+                                <p class="text-muted">
+                                    You can connect your account to third party networks to get extra features.
+                                </p>
+                            </div>
+                            <div class="col-lg-7 offset-lg-1">
+                                <div class="row mb-4">
+                                    <div class="col-sm-10 col-md-8 col-xl-6">
+                                        <a class="btn w-100 text-start btn-alt-danger bg-white"
+                                           href="javascript:void(0)">
+                                            <i class="fab fa-instagram me-1"></i> {{ user.instagram }}
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-12 col-md-4 col-xl-6 mt-1 d-flex align-items-center">
+                                        <a class="text-muted" href="javascript:void(0)">
+                                            <i class="fa fa-pencil-alt me-1"></i> Edit Instagram Connection
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <div class="col-sm-10 col-md-8 col-xl-6">
+                                        <a class="btn w-100 text-start btn-alt-info bg-white" href="javascript:void(0)">
+                                            <i class="fa fab fa-telegram me-1"></i> {{ user.telegram }}
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-12 col-md-4 col-xl-6 mt-1 d-md-flex align-items-md-center">
+                                        <a class="text-muted" href="javascript:void(0)">
+                                            <i class="fa fa-pencil-alt me-1"></i> Edit Telegram Connection
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <div class="col-sm-10 col-md-8 col-xl-6">
+                                        <a class="btn w-100 text-start btn-alt-primary bg-white"
+                                           href="javascript:void(0)">
+                                            <i class="fa fab fa-facebook me-1"></i> {{ user.facebook }}
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-12 col-md-4 col-xl-6 mt-1 d-md-flex align-items-md-center">
+                                        <a class="text-muted" href="javascript:void(0)">
+                                            <i class="fa fa-pencil-alt me-1"></i> Edit Facebook Connection
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- END Connections -->
+
+            <!-- Change Password -->
+            <div class="block block-rounded">
+                <div class="block-header block-header-default">
+                    <h3 class="block-title">
+                        <i class="fa fa-asterisk me-1 text-muted"></i> Change Password
+                    </h3>
+                </div>
+                <div class="block-content">
+                    <form method="POST" id="update-password-form">
+                        <div class="row items-push">
+                            <div class="col-lg-3">
+                                <p class="text-muted">
+                                    Changing your sign in password is an easy way to keep your account secure.
+                                </p>
+                            </div>
+                            <div class="col-lg-7 offset-lg-1">
+                                <div class="mb-4">
+                                    <label class="form-label" for="profile-settings-password">Current Password</label>
+                                    <input type="password" class="form-control form-control-lg"
+                                           id="profile-settings-password" name="profile-settings-password">
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label" for="profile-settings-password-new">New Password</label>
+                                    <input type="password" class="form-control form-control-lg"
+                                           id="profile-settings-password-new" name="profile-settings-password-new">
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label" for="profile-settings-password-new-confirm">Confirm New
+                                        Password</label>
+                                    <input type="password" class="form-control form-control-lg"
+                                           id="profile-settings-password-new-confirm"
+                                           name="profile-settings-password-new-confirm">
+                                </div>
+                                <div class="mb-4">
+                                    <button type="button" class="btn btn-alt-success w-100"
+                                            id="update-password-btn-form">Update
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- END Change Password -->
+
+            <!-- Roles -->
+            <div class="block block-rounded">
+                <div class="block-header block-header-default">
+                    <h3 class="block-title">
+                        <i class="fa fa-user-secret me-1 text-muted"></i> Role
+                    </h3>
+                </div>
+                <div class="block-content">
+                    <form method="POST" id="groupForm"> {% csrf_token %}
+                        <div class="row items-push">
+                            <div class="col-lg-3">
+                                <p class="text-muted">
+                                    Foydalanuvchiga ro'llarni biriktirish
+                                </p>
+                            </div>
+                            <div class="col-lg-7 offset-lg-1">
+
+
+                                <div class="row">
+                                    <div class="mb-4 col-6">
+                                        <label class="form-label d-block">Turi</label>
+                                        <div class="form-check form-check-inline">
+                                            <input type="radio" class="form-check-input" id="mega-status-admin"
+                                                   name="mega-status">
+                                            <label class="form-check-label" for="mega-status-admin">Admin</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input type="radio" class="form-check-input" id="mega-status-employee"
+                                                   name="mega-status">
+                                            <label class="form-check-label" for="mega-status-employee">Hodim</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-4 col-6">
+                                        <label class="form-label">Rollar</label>
+                                        <div class="space-y-2">
+                                            <fieldset id="userGroups">
+                                                <legend>Foydalanuvchi guruhlari</legend>
+                                                <!-- Foydalanuvchining guruhlari shu yerga qo'shiladi -->
+                                            </fieldset>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="mb-4">
+                                    <button type="button" class="btn btn-alt-success w-100" id="save-btn-group">
+                                        Saqlash
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- END Connections -->
+        </div>
+        <!-- END Main Content -->
+        <!-- END Page Content -->
+
+    </div>
+{% endblock content %}
+
+{% block script %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+            integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- jQuery (required for BS Notify plugin) -->
+    <script src="{% static 'assets/js/lib/jquery.min.js' %}"></script>
+
+    <!-- Page JS Plugins -->
+    <script src="{% static 'assets/js/plugins/bootstrap-notify/bootstrap-notify.min.js' %}"></script>
+
+    <!-- Page JS Helpers (BS Notify Plugin) -->
+    <script>Codebase.helpersOnLoad(['jq-notify']);</script>
+
+    {#parolni yangilash#}
+    <script>
+        $('#update-password-btn-form').click(function () {
+            var currentPassword = $('#profile-settings-password').val();
+            var newPassword = $('#profile-settings-password-new').val();
+            var confirmPassword = $('#profile-settings-password-new-confirm').val();
+            var user_id = $('#user-id-project').val();
+
+            // Parolni tekshirish
+            if (newPassword !== confirmPassword) {
+                alert('Yangi parollar mos kelmadi. Iltimos, tekshirib qayta kiriting.');
+                return;
+            }
+
+            // AJAX so'rovini yuborish
+            $.ajax({
+                url: '/user/json/update_password',
+                type: 'POST',
+                data: {
+                    'current_password': currentPassword,
+                    'new_password': newPassword,
+                    'confirm_password': confirmPassword,
+                    'user_id': user_id,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function (data) {
+                    Codebase.helpers('jq-notify', {
+                        align: 'right',             // 'right', 'left', 'center'
+                        from: 'bottom',                // 'top', 'bottom'
+                        type: 'success',               // 'info', 'success', 'warning', 'danger'
+                        icon: 'fa fa-check me-5',    // Icon class
+                        message: `Muvaffaqiyatli yanilandi`
+                    });
+                    // Qaysi sahifaga qaytish lozim bo'lsa uni o'zgartiring
+                    // window.location.href = '/profile/';
+                },
+                error: function (xhr, status, error) {
+                    Codebase.helpers('jq-notify', {
+                        align: 'right',             // 'right', 'left', 'center'
+                        from: 'bottom',                // 'top', 'bottom'
+                        type: 'danger',               // 'info', 'success', 'warning', 'danger'
+                        icon: 'fa fa-check me-5',    // Icon class
+                        message: `${response.message}`
+                    });
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            // Foydalanuvchi guruhlarini olish
+            let user_id = document.getElementById('user-id-project').value;
+            $.ajax({
+                url: `/user/json/get_user_list_json/${user_id}`,
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    var userGroups = data.user_data.user_groups.map(group => group[0]); // Faqat guruhlar id lari kerak
+                    var allGroups = data.user_data.all_groups;
+
+                    // Foydalanuvchi guruhlari ro'yxatini sahifaga joylash
+                    var checkboxContainer = $('#userGroups');
+                    for (var i = 0; i < allGroups.length; i++) {
+                        var group = allGroups[i];
+                        var isChecked = userGroups.includes(group[0]);
+                        var checkbox = $('<input>').attr('type', 'checkbox').attr('name', 'groups').val(group[0]).prop('checked', isChecked);
+                        var label = $('<label>').text(group[1]).prepend(checkbox);
+                        var div = $('<div>').addClass('checkbox-item').append(label); // Yangi div qatordan oldingi chekboxlar
+                        checkboxContainer.append(div);
+                    }
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log('Error:', errorThrown);
+                }
+            });
+
+            $.ajax({
+                url: `/user/json/get_user_list_json/${user_id}`,
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    var isSuperuser = data.user_data.is_superuser;
+
+                    // Foydalanuvchi turi tanlanggan holda
+                    if (isSuperuser) {
+                        $('#mega-status-admin').prop('checked', true);
+                    } else {
+                        $('#mega-status-employee').prop('checked', true);
+                    }
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log('Error:', errorThrown);
+                }
+            });
+
+            // Saqlash tugmasi bosilganda
+
+
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#save-btn-group').click(function () {
+                // CSRF tokenni olish
+                var csrftoken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+
+                // CSRF tokenni tekshirish
+                if (!csrftoken) {
+                    console.error('CSRF token not found!');
+                    return;
+                }
+
+                // User ID ni olish
+                var user_id = $('#user-id-project').val();
+
+                // Formdan ma'lumotlarni o'zgaruvchiga tenglab olish
+                var formData = {
+                    'csrfmiddlewaretoken': csrftoken, // CSRF token
+                    'user_id': user_id, // User ID
+                    'mega-status': $('#mega-status-admin').is(':checked'), // tanlangan radio tugma
+                    'groups': $('input[name="groups"]:checked').map(function () { // tanlangan checkbox tugmalar
+                        return this.value;
+                    }).get()
+                };
+
+                // AJAX orqali ma'lumotlarni yuborish
+                $.ajax({
+                    url: '/user/json/update_user_groups', // URL manzili
+                    type: 'POST', // So'rov turi
+                    headers: {"X-CSRFToken": csrftoken}, // CSRF tokenini x-header sifatida yuborish
+                    data: formData, // Ma'lumotlar
+                    success: function (response) {
+                        console.log(response)
+                        Codebase.helpers('jq-notify', {
+                            align: 'right',             // 'right', 'left', 'center'
+                            from: 'bottom',                // 'top', 'bottom'
+                            type: 'success',               // 'info', 'success', 'warning', 'danger'
+                            icon: 'fa fa-check me-5',    // Icon class
+                            message: `${response.message}`
+                        });
+                        console.log('Ma\'lumotlar muvaffaqiyatli yuborildi:', response);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Xatolik:', error);
+                    }
+                });
+            });
+        });
+    </script>
+
+
+{% endblock script %}

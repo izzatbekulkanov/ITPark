@@ -1,0 +1,477 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block style %}
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+{% endblock style %}
+<!-- CSS fayllarni CDN orqali yuklash -->
+
+
+{% block content %}
+    <main id="main-container">
+
+        <!-- Hero -->
+        <div class="bg-body-extra-light hero-bubbles">
+            <span class="hero-bubble hero-bubble-lg bg-warning" style="top: 20%; left: 10%;"></span>
+            <span class="hero-bubble bg-success" style="top: 20%; left: 80%;"></span>
+            <span class="hero-bubble hero-bubble-sm bg-corporate" style="top: 40%; left: 25%;"></span>
+            <span class="hero-bubble hero-bubble-lg bg-earth" style="top: 10%; left: 20%;"></span>
+            <span class="hero-bubble hero-bubble-lg bg-pulse" style="top: 30%; left: 90%;"></span>
+            <span class="hero-bubble hero-bubble-lg bg-danger" style="top: 35%; left: 20%;"></span>
+            <span class="hero-bubble hero-bubble-lg bg-warning" style="top: 60%; left: 35%;"></span>
+            <span class="hero-bubble bg-info" style="top: 60%; left: 80%;"></span>
+            <span class="hero-bubble hero-bubble-lg bg-flat" style="top: 75%; left: 70%;"></span>
+            <span class="hero-bubble hero-bubble-lg bg-earth" style="top: 75%; left: 10%;"></span>
+            <span class="hero-bubble bg-elegance" style="top: 90%; left: 90%;"></span>
+
+            <div class="position-relative d-flex align-items-center">
+                <div class="content content-full">
+                    <div class="row g-1 w-100 py-7 ml-auto mr-auto overflow-hidden">
+                        <div class="row">
+                            <div class="block block-rounded">
+                                <div class="block-content block-content-full">
+                                    <div class="py-3 text-center">
+                                        <h1 class="h3 fw-extrabold mb-1">
+                                            Kerakli hizmatni tanlang
+                                        </h1>
+                                        <h2 class="fs-sm fw-medium text-muted mb-0">
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam, animi
+                                            aspernatur assumenda blanditiis commodi doloremque eius eos error
+                                            exercitationem, in, inventore natus officiis perspiciatis quae recusandae
+                                            sed vel vitae voluptates!
+                                        </h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="menuServices">
+                            <!-- Row #5 -->
+                            <!-- END Row #5 -->
+                        </div>
+
+
+                        <!-- Extra Large Modal -->
+                        <div class="modal" id="modal-extra-large" tabindex="0" role="dialog"
+                             aria-labelledby="modal-extra-large" aria-hidden="true">
+                            <div class="modal-dialog modal-xl" role="document">
+                                <div class="modal-content">
+                                    <div class="block block-rounded shadow-none mb-0">
+                                        <div class="block-header block-header-default">
+                                            <h3 class="block-title">Navbat olish</h3>
+                                            <div class="block-options">
+                                                <button type="button" class="btn-block-option" data-bs-dismiss="modal"
+                                                        aria-label="Close">
+                                                    <i class="fa fa-times"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="block-content fs-sm">
+                                            <div class="sendDataForm">
+                                                <!-- Regular -->
+                                                <div class="row items-push">
+                                                    <div class="col-lg-4">
+                                                        <p class="fs-sm text-muted">
+                                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                                            Amet animi delectus dicta ea earum exercitationem, incidunt
+                                                            iusto laboriosam maxime nihil nulla quo saepe suscipit.
+                                                            Corporis itaque minus necessitatibus omnis pariatur?
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-lg-8 col-xl-5">
+                                                        <div class="mb-4">
+                                                            <label class="form-label" for="service-type">Hizmat
+                                                                turi</label>
+                                                            <input type="text" class="form-control"
+                                                                   id="service-type"
+                                                                   name="service-type"
+                                                                   disabled>
+                                                            <input type="text" class="form-control"
+                                                                   id="service-type-id-code"
+                                                                   name="service-type-id-code"
+                                                                   disabled
+                                                                   hidden="hidden">
+                                                        </div>
+                                                        <div class="mb-4">
+                                                            <label class="form-label" for="first_name">Ism <span
+                                                                    class="text-danger">*</span></label>
+                                                            <input type="text" class="form-control" id="first_name"
+                                                                   name="first_name"
+                                                                   placeholder="Ismingizni kiriting..">
+                                                        </div>
+                                                        <div class="mb-4">
+                                                            <label class="form-label" for="last_name">Familiya <span
+                                                                    class="text-danger">*</span></label>
+                                                            <input type="text" class="form-control" id="last_name"
+                                                                   name="last_name"
+                                                                   placeholder="Familiyangizni kiriting..">
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <!-- END Regular -->
+                                            </div>
+                                        </div>
+                                        <div class="block-content block-content-full block-content-sm text-end border-top">
+                                            <button type="button" class="btn btn-alt-secondary" data-bs-dismiss="modal"
+                                                    id="close_modal_service">
+                                                Yopish
+                                            </button>
+                                            <button type="button" class="btn btn-alt-primary" onclick="sendData()">
+                                                Olish
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END Extra Large Modal -->
+
+                        <!-- Normal Modal -->
+                        <div class="modal" id="modal-normal-combat" tabindex="-1" role="dialog"
+                             aria-labelledby="modal-normal" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="block block-rounded shadow-none mb-0">
+                                        <div class="block-header block-header-default">
+                                            <h3 class="block-title"></h3>
+                                            <div class="block-options">
+                                            </div>
+                                        </div>
+                                        <div class="block-content fs-sm">
+                                            <p><span>Hurmatli</span> <span id="client_check_name"></span></p>
+
+                                            <div class="col-12 col-md-12 col-xl-12">
+                                                <a class="block block-link-shadow text-center"
+                                                   href="javascript:void(0)">
+                                                    <div class="block-content bg-body-light py-3">
+                                                        <p class="fw-medium mb-0" id="service_check_name">
+                                                            Cart
+                                                        </p>
+                                                    </div>
+                                                </a>
+                                            </div>
+
+                                            <div class="col-12 col-md-12 col-xl-12">
+                                                <a class="block block-link-pop text-center" href="javascript:void(0)">
+                                                    <div class="block-content">
+                                                        <p class="fs-1 text-warning">
+                                                            <strong id="order_check_number">15</strong>
+                                                        </p>
+                                                    </div>
+                                                    <div class="block-content bg-body-light py-3">
+                                                        <p class="fw-medium mb-0">
+                                                            Tartib raqamingiz
+                                                        </p>
+                                                    </div>
+                                                </a>
+                                            </div>
+
+                                        </div>
+                                        <div class="block-content block-content-full block-content-sm text-end border-top">
+                                            <button type="button" class="btn btn-alt-secondary" data-bs-dismiss="modal">
+                                                Close
+                                            </button>
+                                            <button type="button" class="btn btn-alt-primary" data-bs-dismiss="modal">
+                                                Done
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END Normal Modal -->
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END Hero -->
+
+        <!-- Extra Large Modal -->
+        <div class="modal" id="modal-icon" tabindex="-1" role="dialog" aria-labelledby="modal-icon"
+             aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="block block-rounded shadow-none mb-0">
+                        <div class="block-header block-header-default">
+                            <h3 class="block-title">Belgilar</h3>
+                            <div class="block-options">
+                                <button type="button" class="btn-block-option" data-bs-dismiss="modal"
+                                        aria-label="Close">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="block-content fs-sm row g-sm" id="icon-div">
+
+                        </div>
+                        <div class="block-content block-content-full block-content-sm text-end border-top">
+                            <button type="button" class="btn btn-alt-secondary" data-bs-dismiss="modal">
+                                Close
+                            </button>
+                            <button type="button" class="btn btn-alt-primary" data-bs-dismiss="modal">
+                                Done
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END Extra Large Modal -->
+
+
+        <!-- Footer -->
+        {% include 'layout/footer.html' %}
+        <!-- END Footer -->
+    </main>
+
+{% endblock content %}
+
+{% block script %}
+
+    <script>
+        function populateServiceTable(services) {
+            // HTML jadvalidagi tbody elementini tanlash
+            var menu = document.getElementById('menuServices');
+
+            // Eski ma'lumotlarni tozalash
+            menu.innerHTML = '';
+
+            // Har bir xizmat uchun ma'lumotlar ro'yxatini yaratish va jadvalga qo'shish
+            services.services.forEach(function (service) {
+                // Service.created_at ni JavaScript Date obyektiga o'tkazish
+                var createdAt = new Date(service.created_at);
+
+                // JavaScript Date obyektini yil, oy, kun ko'rinishida formatlash
+                var dateString = createdAt.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+
+                // Yangi qator elementini yaratish
+                var row = document.createElement('div');
+                row.classList.add('col-6', 'col-md-4', 'col-xl-4');
+
+                // Qator elementiga ma'lumotlar qo'shish
+                row.innerHTML = row.innerHTML = `
+                                                <a class="block block-rounded block-link-shadow text-center">
+                                                    <div class="block-content">
+                                                        <button type="button" class="btn bg-transparent border-0" data-bs-toggle="modal"
+                                                            data-bs-target="#modal-extra-large" onclick="fillForm('${service.name}', '${service.id}')">
+                                                            <p class="">
+                                                                ${service.icon_icon ? `${service.icon_icon}` :
+                    `<button type="button" class="btn rounded-pill btn-outline-primary " data-bs-toggle="modal" data-bs-target="#modal-icon" onclick="fillIcondata(${service.id})">
+                                                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                                                </button>`}
+                                                            </p>
+                                                            <p class="fw-semibold">${service.name}</p>
+                                                        </button>
+                                                    </div>
+                                                </a>
+                                            `;
+
+                // Yangi qator elementini tbody ga qo'shish
+                menu.appendChild(row);
+            });
+        }
+
+        function fillIcondata(serviceId) {
+            let iconDiv = document.getElementById('icon-div');
+            iconDiv.innerHTML = '';  // Bo'shaltirish
+            $.ajax({
+                type: 'GET',
+                url: '/json/get_icons',  // get_icons funksiyasi uchun URL manzilini o'zgartiring
+                dataType: 'json',
+                success: function (response) {
+                    if (response.success) {
+                        // Iconlarni HTML-ga chiqaring
+                        var iconList = response.icons;
+                        console.log(iconList)
+                        iconList.forEach(function (icon) {
+                            var html = '<div class="col-6 col-md-4 col-xl-2">';
+                            html += '<a class="block block-rounded block-bordered block-link-shadow text-center" href="javascript:void(0)" onclick="saveIcon(\'' + icon.id + '\', \'' + serviceId + '\')">';
+                            html += '<div class="block-content">';
+                            html += '<p class="mt-1">' + icon.icon + '</p>';
+                            html += '<p class="fw-medium">' + icon.name + '</p>';
+                            html += '</div>';
+                            html += '</a>';
+                            html += '</div>';
+                            iconDiv.innerHTML += html;
+                        });
+                    } else {
+                        alert('Xatolik: ' + response.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('Xatolik: ' + error);
+                }
+            });
+        }
+
+        function saveIcon(icon, service) {
+            fetch('/json/save_service_with_icon', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken') // Django CSRF tokenini olish uchun
+                },
+                body: JSON.stringify({
+                    'service_id': service,
+                    'icon_id': icon
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Modalni yopish
+                    var modalElement = document.getElementById('modal-icon');
+                    var modal = bootstrap.Modal.getInstance(modalElement);
+                    if (modal) {
+                        modal.hide();
+                    } else {
+                        console.error('Modal not found');
+                    }
+                    fetchServices();
+                    console.log(data.message); // Ma'lumot muvaffaqiyatli saqlandi yoki xato haqida xabar
+                })
+                .catch(error => {
+                    console.error('Xizmat va ikonni saqlashda xatolik:', error);
+                });
+        }
+
+        // CSRF tokenini olish uchun yordamchi funksiya
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Django CSRF tokeni 'csrftoken' nomi ostida
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        // Service lar ro'yxatini olish uchun AJAX so'rov
+        function fetchServices() {
+            // AJAX so'rov yuborish
+            fetch('/json/get_service_list')
+                .then(response => response.json())
+                .then(data => {
+                    // Qayta yuklash funksiyasini chaqirish
+                    populateServiceTable(data);
+                })
+                .catch(error => console.error('Error fetching services:', error));
+        }
+
+        function fillForm(serviceName, serviceId) {
+            // xizmat turining nomi va ID sini qo'shish
+            let service_type = document.getElementById('service-type');
+            service_type.value = serviceName;
+            let service_type_id = document.getElementById('service-type-id-code');
+            service_type_id.value = serviceId;
+        }
+
+        function sendData() {
+            // Formadagi ma'lumotlarni olish
+            var firstName = document.getElementById('first_name').value;
+            var lastName = document.getElementById('last_name').value;
+            var serviceId = document.getElementById('service-type-id-code').value;
+
+            // Validatsiya
+            if (firstName.trim() === '' || lastName.trim() === '' || serviceId.trim() === '') {
+                console.error('Barcha maydonlar to\'ldirilishi shart');
+                return; // Agar maydonlar to'ldirilmagan bo'lsa, funksiyani tugatamiz
+            }
+
+            // Ma'lumotlarni JavaScript obyektiga joylash
+            var data = {
+                'first_name': firstName,
+                'last_name': lastName,
+                'service_id': parseInt(serviceId)  // service_id ni int ga aylantiring
+            };
+
+            // AJAX so'rovni yuborish
+            fetch('/json/receive_data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}' // CSRF to'kenini qo'shish
+                },
+                body: JSON.stringify(data) // JSON formatiga o'tkazish
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Modalni yopish
+                    var modalElement = document.getElementById('modal-extra-large');
+                    var modal = bootstrap.Modal.getInstance(modalElement);
+                    if (modal) {
+                        modal.hide();
+                    } else {
+                        console.error('Modal not found');
+                    }
+                    getLatestQueue(serviceId);
+                    // Formani tozalash
+                    document.getElementById('first_name').value = '';
+                    document.getElementById('last_name').value = '';
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        }
+
+        function getLatestQueue(service_id) {
+
+
+            fetch(`/json/latest_queue/${service_id}/`, {
+                method: 'GET'
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        var latestQueueData = data.data;
+
+                        fillOrderModal(latestQueueData);
+                        console.log(latestQueueData)
+                    } else {
+                        console.error(data.error);
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        }
+
+        function fillOrderModal(data) {
+            let name = document.getElementById('client_check_name')
+            let service = document.getElementById('service_check_name')
+            let order = document.getElementById('order_check_number')
+            name.innerText = ''
+            service.innerText = ''
+            order.innerText = ''
+
+
+            var modalElement = document.getElementById('modal-normal-combat'); // Modal elementini tanlash
+            var modal = new bootstrap.Modal(modalElement); // Modal elementi uchun modal obyekti yaratiladi
+
+            name.innerText = data.first_name + data.last_name
+            service.innerText = data.service_name
+            order.innerText = data.order_number
+
+            modal.show(); // Modalni ko'rsatish
+        }
+
+
+        fetchServices();
+    </script>
+    
+   
+    
+    
+
+{% endblock script %}
